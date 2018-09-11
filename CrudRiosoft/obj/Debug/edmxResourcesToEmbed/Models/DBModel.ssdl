@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CLIENTEDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CLIENTE">
+    <Key>
+      <PropertyRef Name="CLI_COD" />
+    </Key>
+    <Property Name="CLI_COD" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NOME" Type="varchar" MaxLength="300" Nullable="false" />
+    <Property Name="CPF" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="DATANASCIMENTO" Type="date" Nullable="false" />
+    <Property Name="GENERO" Type="char" MaxLength="1" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TELEFONE">
+    <Key>
+      <PropertyRef Name="CLI_COD" />
+    </Key>
+    <Property Name="CLI_COD" Type="int" Nullable="false" />
+    <Property Name="DDD" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="NUMERO" Type="varchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__TELEFONE__CLI_CO__1DE57479">
+    <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="1" />
+    <End Role="TELEFONE" Type="Self.TELEFONE" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="CLIENTE">
+        <PropertyRef Name="CLI_COD" />
+      </Principal>
+      <Dependent Role="TELEFONE">
+        <PropertyRef Name="CLI_COD" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CLIENTEDBModelStoreContainer">
+    <EntitySet Name="CLIENTE" EntityType="Self.CLIENTE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TELEFONE" EntityType="Self.TELEFONE" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__TELEFONE__CLI_CO__1DE57479" Association="Self.FK__TELEFONE__CLI_CO__1DE57479">
+      <End Role="CLIENTE" EntitySet="CLIENTE" />
+      <End Role="TELEFONE" EntitySet="TELEFONE" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
